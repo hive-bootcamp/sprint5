@@ -7,11 +7,11 @@ import (
 
 // Основные константы, необходимые для расчетов.
 const (
-	lenStep   = 0.65            // средняя длина шага.
-	mInKm     = 1000            // количество метров в километре.
-	minInH    = 60              // количество минут в часе.
-	kmhInMsec = 1000.0 / 3600.0 // коэффициент для преобразования км/ч в м/с.
-	cmInM     = 100             // количество сантиметров в метре.
+	lenStep   = 0.65  // средняя длина шага.
+	mInKm     = 1000  // количество метров в километре.
+	minInH    = 60    // количество минут в часе.
+	kmhInMsec = 0.278 // коэффициент для преобразования км/ч в м/с.
+	cmInM     = 100   // количество сантиметров в метре.
 )
 
 // distance возвращает дистанцию(в километрах), которую преодолел пользователь за время тренировки.
@@ -103,7 +103,7 @@ const (
 func WalkingSpentCalories(action int, duration, weight, height float64) float64 {
 	// ваш код здесь
 	meanSpeedInMsec := meanSpeed(action, duration) * kmhInMsec // переводим среднюю скорость в м/с
-	spentCalories := (walkingCaloriesWeightMultiplier*weight + (math.Pow(meanSpeedInMsec, 2)/height)*walkingSpeedHeightMultiplier*weight) * duration * minInH
+	spentCalories := (walkingCaloriesWeightMultiplier*weight + (math.Pow(meanSpeedInMsec, 2)/(height/cmInM))*walkingSpeedHeightMultiplier*weight) * duration * minInH
 	return spentCalories
 }
 
